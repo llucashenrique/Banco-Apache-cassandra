@@ -1,0 +1,45 @@
+version: '3.8'
+
+networks:
+  cassandraCluster:
+
+services:
+  cassandra10:
+    image: cassandra:latest
+    container_name: cassandra10
+    ports:
+      - "9042:9042"
+    networks:
+      - cassandraCluster
+
+  cassandra-init:
+    image: cassandra:latest
+    depends_on:
+      - cassandra10
+    networks:
+      - cassandraCluster
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: >
+      bash -c "
+      echo 'Aguardando Cassandra ficar pronto...';
+
+      until cqlsh cassandra10 -e 'DESCRIBE KEYSPACES' > /dev/null 2>&1; do
+          echo 'Ainda não está pronto...';
+          sleep 5;
+      done;
+
+      echo 'Cassandra pronto!';
+
+      echo 'Executando create_table...';
+      cqlsh cassandra10 -f /scripts/create_table.cql || true;
+
+      echo 'Executando update_tables...';
+      cqlsh cassandra10 -f /scripts/update_tables.cql || true;
+
+      echo 'Executando delete_tables...';
+      cqlsh cassandra10 -f /scripts/delete_tables.cql || true;
+
+      echo 'Scripts executados com sucesso!';
+      tail -f /dev/null
+      "
