@@ -38,17 +38,15 @@ SELECT * FROM alunos;
 ```bash
 SELECT * FROM alunos;
 
-UPDATE alunos SET idade = 35 WHERE id = 3fa85f64-5717-4562-b3fc-2c963f66afa6;
+UPDATE alunos SET idade = 35 WHERE id = <id>;
 ```
 
 ## Delete no banco
 ```bash
 SELECT * FROM alunos;
 
+DELETE FROM alunos WHERE id = <id>;
 
-SELECT * FROM alunos;
-
-DELETE FROM alunos WHERE id = 3fa85f64-5717-4562-b3fc-2c963f66afa6;
 SELECT * FROM alunos;
 ```
 
