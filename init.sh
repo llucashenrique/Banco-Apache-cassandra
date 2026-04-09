@@ -9,6 +9,8 @@ done
 echo "Cassandra pronto! Executando scripts..."
 
 cqlsh cassandra10 9042 -f /scripts/create_tables.cql
-cqlsh cassandra10 9042 -f /scripts/insert.cql
+cqlsh cassandra10 9042 -f /scripts/insert_tables.cql
+cqlsh cassandra10 9042 -f /scripts/update_tables.cql
+cqlsh cassandra10 9042 -f /scripts/delete_tables.cql
 
 echo "Scripts executados!"
