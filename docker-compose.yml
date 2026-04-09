@@ -34,6 +34,9 @@ services:
       echo 'Executando create_table...';
       cqlsh cassandra10 -f /scripts/create_table.cql || true;
 
+      echo 'Executando insert_table...';
+      cqlsh cassandra10 -f /scripts/insert_table.cql || true;
+
       echo 'Executando update_tables...';
       cqlsh cassandra10 -f /scripts/update_tables.cql || true;
 
